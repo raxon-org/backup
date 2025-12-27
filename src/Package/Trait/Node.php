@@ -18,7 +18,13 @@ trait Node {
         Core::interactive();
         $object = $this->object();
         $directory = $object->config('project.volume.dir.node');
-        ddd($directory);
+
+        $dir = new Dir();
+        $read = $dir->read($directory, true);
+        $list = [];
+        foreach($read as $nr => $file){
+            ddd($file);
+        }
     }
 }
 
