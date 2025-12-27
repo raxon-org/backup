@@ -1,8 +1,8 @@
 {
-  "name" : "raxon/git",
-  "description" : "raxon/git see https://raxon.org for detailed usage",
+  "name" : "raxon/backup",
+  "description" : "raxon/backup see https://raxon.org for detailed usage",
   "type" : "package",
-  "keywords" : ["git", "raxon", "org", "package", "framework", "raxon.org"],
+  "keywords" : ["backup", "raxon", "org", "package", "framework", "raxon.org"],
   "homepage": "https://raxon.org",
   "require" : {
     "ext-posix": "*",
