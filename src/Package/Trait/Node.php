@@ -54,6 +54,7 @@ trait Node {
         $data = explode("\n", $data);
         $header = Core::object($data[0], Core::OBJECT);
         ddd($header);
+        d('yes');
     }
 
 
