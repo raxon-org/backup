@@ -35,9 +35,9 @@ trait Node {
                 if (empty($options->include) && empty($options->exclude)) {
                     $is_entry = true;
                 }
-                d($file);
-                d('t');
                 if (stristr($file->basename, 'Node-') !== false && $file->extension == 'backup' && $is_entry) {
+                    $explode = explode('Node-', $file->basename);
+                    d($explode);
                     d($file);
                 }
             }
