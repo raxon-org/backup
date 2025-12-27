@@ -50,8 +50,8 @@ trait Node {
         foreach($list as $nr => $file){
             $data .= File::read($file->url);
         }
-        $data =gzdecode($data);
-        ddd(gzdecode($data));
+        $data = gzdecode($data);
+        ddd($data);
     }
 
 
