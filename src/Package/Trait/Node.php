@@ -52,7 +52,8 @@ trait Node {
         }
         $data = gzdecode($data);
         $data = explode("\n", $data);
-        ddd($data[0]);
+        $header = Core::object($data[0], Core::OBJECT);
+        ddd($header);
     }
 
 
