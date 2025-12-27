@@ -33,7 +33,7 @@ trait Node {
                 $file->group = File::group($file->url);
                 $file->chmod = File::rights($file->url);
                 $file->extension = File::extension($file->url);
-                $file->basename = File::basename($file->url);
+                $file->basename = File::basename($file->url, $file->extension);
                 $file->size = File::size($file->url);
                 $write[] = $boundary . '-1';
                 $write[] = Core::object($file, Core::JSON);
