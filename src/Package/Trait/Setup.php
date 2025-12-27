@@ -14,7 +14,7 @@ trait Setup {
     /**
      * @throws Exception
      */
-    public function run(): void
+    public function install(): void
     {
         Core::interactive();
         $object = $this->object();

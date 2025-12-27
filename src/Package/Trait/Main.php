@@ -13,7 +13,7 @@ trait Main {
     /**
      * @throws Exception
      */
-    public function run(object $flags, object $options): void
+    public function main(object $flags, object $options): void
     {
         Core::interactive();
         $object = $this->object();
