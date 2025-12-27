@@ -59,6 +59,7 @@ trait Node {
         foreach($data as $nr => $line){
             if($line === $boundary . '-1'){
                 $is_collect = true;
+                $collection = [];
                 continue;
             }
             if($line === $boundary . '-2'){
@@ -67,9 +68,10 @@ trait Node {
                 $collection = [];
                 continue;
             }
-            if($line === $boundary . '-3'){
-                d($file_info);
-                ddd($collection);
+            if($line === $boundary . '-3')
+                $file_content = implode("\n", $collection);
+                File::write($file_info->url, $file_content);
+                echo 'Restored: ' . $file_info->basename . PHP_EOL;
                 $is_collect = true;
                 $collection = [];
                 continue;
@@ -78,8 +80,6 @@ trait Node {
                 $collection[] = $line;
             }
         }
-        ddd($header);
-        d('yes');
     }
 
 
