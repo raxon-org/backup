@@ -50,6 +50,7 @@ trait Node {
         foreach($list as $nr => $file){
             $data .= File::read($file->url);
         }
+        $data =gzdecode($data);
         ddd(gzdecode($data));
     }
 
@@ -76,7 +77,7 @@ trait Node {
             'include' => $options->include ?? [],
             'exclude' => $options->exclude ?? [],
         ];
-        $write[] = Core::object($header, Core::JSON);
+        $write[] = Core::object($header, Core::JSON_LINE);
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
@@ -97,7 +98,7 @@ trait Node {
                 }
                 $file->size = File::size($file->url);
                 $write[] = $boundary . '-1';
-                $write[] = Core::object($file, Core::JSON);
+                $write[] = Core::object($file, Core::JSON_LINE);
                 $write[] = $boundary . '-2';
                 $write[] = File::read($file->url);
                 $write[] = $boundary . '-3';
