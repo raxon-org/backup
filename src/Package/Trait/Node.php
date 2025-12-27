@@ -55,12 +55,21 @@ trait Node {
         $header = Core::object($data[0], Core::OBJECT);
         $boundary = $header->boundary ?? null;
         $is_collect = false;
+        $collection = [];
         foreach($data as $nr => $line){
             if($line === $boundary . '-1'){
                 $is_collect = true;
+                continue;
+            }
+            if($line === $boundary . '-2'){
+                if(array_key_exists(1, $collection)){
+                    ddd($collection);
+                }
+                $is_collect = true;
+                continue;
             }
             if($is_collect){
-                breakpoint($line);
+                $collection[] = $line;
             }
         }
         ddd($header);
