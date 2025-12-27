@@ -22,14 +22,17 @@ trait Node {
         $dir = new Dir();
         $read = $dir->read($directory, true);
         $list = [];
+        $count = 0;
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
                 $file->group = File::group($file->url);
                 $file->chmod = File::rights($file->url);
-                ddd($file);
+                $list[] = $file;
+                $count++;
             }
         }
+        ddd($count);
     }
 }
 
