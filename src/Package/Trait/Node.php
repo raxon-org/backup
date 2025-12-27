@@ -4,23 +4,21 @@ namespace Package\Raxon\Backup\Trait;
 use Raxon\App;
 
 use Raxon\Module\Core;
+use Raxon\Module\Dir;
 use Raxon\Module\File;
 
-use Raxon\Node\Module\Node;
-
 use Exception;
-trait Setup {
+trait Node {
 
     /**
      * @throws Exception
      */
-    public function run(): void
+    public function node_create(object $flags, object $options): void
     {
         Core::interactive();
         $object = $this->object();
-        /**
-         * scan dir if node System.Git has count: 0.
-         */
+        $directory = $object->config('volume.dir.node');
+        ddd($directory);
     }
 }
 
