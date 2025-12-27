@@ -68,7 +68,7 @@ trait Node {
                 $collection = [];
                 continue;
             }
-            if($line === $boundary . '-3')
+            if($line === $boundary . '-3'){
                 $file_content = implode("\n", $collection);
                 File::write($file_info->url, $file_content);
                 echo 'Restored: ' . $file_info->basename . PHP_EOL;
