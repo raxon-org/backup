@@ -63,13 +63,12 @@ trait Node {
         }
         $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
-        $write = mb_str_split(gzencode(implode("\n", $write), 9), 1024 * 5); //split data in 25 MB chunks
+        $write = mb_str_split(gzencode(implode("\n", $write), 9), 1024 * 1024 * 25); //split data in 25 MB chunks
         $chunk_count = count($write);
         for($i = 0; $i < $chunk_count; $i++){
             File::write($dir_output . 'Node-'. $i .'.json', $write[$i]);
         }
-        d(File::size_format($size));
-        ddd($count);
+        echo 'Written: ( ' . $chunk_count . ' files)' . File::size_format($size) . PHP_EOL;
     }
 }
 
