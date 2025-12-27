@@ -46,7 +46,11 @@ trait Node {
             }
         }
         ksort($list, SORT_NATURAL);
-        ddd($list);
+        $data = '';
+        foreach($list as $nr => $file){
+            $data .= File::read($file->url);
+        }
+        ddd(gzdecode($data));
     }
 
 
