@@ -62,7 +62,7 @@ trait Node {
                 continue;
             }
             if($line === $boundary . '-2'){
-                if(array_key_exists(1, $collection)){
+                if(array_key_exists(0, $collection)){
                     ddd($collection);
                 }
                 $is_collect = true;
