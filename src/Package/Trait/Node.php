@@ -24,6 +24,9 @@ trait Node {
         $list = [];
         $count = 0;
         $size = 0;
+        $write = [];
+        $boundary = Core::uuid() . '-' . Core::uuid();
+        $write[] = $boundary;
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
@@ -32,11 +35,18 @@ trait Node {
                 $file->extension = File::extension($file->url);
                 $file->basename = File::basename($file->url);
                 $file->size = File::size($file->url);
+                $write[] = $boundary . '-1';
+                $write[] = Core::object($file, Core::JSON);
+                $write[] = $boundary . '-2';
+                $write[] = File::read($file->url);
+                $write[] = $boundary . '-3';
                 $size += $file->size;
-                $list[] = $file;
                 $count++;
             }
         }
+        $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
+        Dir::create($dir_output, Dir::CHMOD);
+        File::write($dir_output . 'Node.json', implode("\n", $write));
         d(File::size_format($size));
         ddd($count);
     }
