@@ -68,6 +68,7 @@ trait Node {
                 continue;
             }
             if($line === $boundary . '-3'){
+                d($file_info);
                 ddd($collection);
                 $is_collect = true;
                 $collection = [];
