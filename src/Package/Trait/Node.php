@@ -39,6 +39,7 @@ trait Node {
                     $explode = explode('Node-', $file->basename);
                     d($explode);
                     d($file);
+                    d('tes');
                 }
             }
         }
