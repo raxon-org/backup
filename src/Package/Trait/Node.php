@@ -45,6 +45,7 @@ trait Node {
                 }
             }
         }
+        ksort($list, SORT_NATURAL);
         ddd($list);
     }
 
