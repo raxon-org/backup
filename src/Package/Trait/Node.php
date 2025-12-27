@@ -21,6 +21,7 @@ trait Node {
         }
         $dir = new Dir();
         $read = $dir->read($dir_output, true);
+        $list = [];
         foreach($read as $nr => $file) {
             if ($file->type == File::TYPE) {
                 $file->extension = File::extension($file->url);
@@ -37,12 +38,14 @@ trait Node {
                 }
                 if (stristr($file->basename, 'Node-') !== false && $file->extension == 'backup' && $is_entry) {
                     $explode = explode('Node-', $file->basename);
-                    d($explode);
-                    d($file);
-                    d('tes');
+                    if(array_key_exists(1, $explode)){
+                        $number = (int) $explode[1];
+                        $list[$number] = $file;
+                    }
                 }
             }
         }
+        ddd($list);
     }
 
 
