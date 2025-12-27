@@ -10,6 +10,39 @@ use Raxon\Module\File;
 use Exception;
 trait Node {
 
+    public function node_restore(object $flags, object $options): void
+    {
+        Core::interactive();
+        $dir_output = '/mnt/Disk2/Media/Backup/';
+        if(!property_exists($options, 'date')){
+            $dir_output .= date('Ymd') . '/';
+        } else {
+            $dir_output .= trim($options->date, '/') . '/';
+        }
+        $dir = new Dir();
+        $read = $dir->read($dir_output, true);
+        foreach($read as $nr => $file) {
+            if ($file->type == File::TYPE) {
+                $file->extension = File::extension($file->url);
+                $file->basename = File::basename($file->url, $file->extension);
+                $is_entry = false;
+                if (!empty($options->include) && in_array($file->basename, $options->include, true)) {
+                    $is_entry = true;
+                }
+                if (!empty($options->exclude) && in_array($file->basename, $options->exclude, true)) {
+                    $is_entry = false;
+                }
+                if (empty($options->include) && empty($options->exclude)) {
+                    $is_entry = true;
+                }
+                if (stristr($file->basename, 'Node-') !== false && $file->extension == 'backup' && $is_entry) {
+                    d($file);
+                }
+            }
+        }
+    }
+
+
     /**
      * @throws Exception
      */
@@ -66,7 +99,7 @@ trait Node {
         $write = mb_str_split(gzencode(implode("\n", $write), 9), 1024 * 1024 * 25); //split data in 25 MB chunks
         $chunk_count = count($write);
         for($i = 0; $i < $chunk_count; $i++){
-            File::write($dir_output . 'Node-'. $i .'.json', $write[$i]);
+            File::write($dir_output . 'Node-'. $i .'.backup', $write[$i]);
         }
         echo 'Written: ( ' . $count . ' files) ' . File::size_format($size) . PHP_EOL;
     }
