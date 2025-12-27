@@ -24,7 +24,8 @@ trait Node {
         $list = [];
         foreach($read as $nr => $file){
             $file->owner = File::owner($file->url);
-            $file->permission = File::rights($file->url);
+            $file->group = File::group($file->url);
+            $file->chmod = File::rights($file->url);
             ddd($file);
         }
     }
