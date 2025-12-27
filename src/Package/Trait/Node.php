@@ -26,7 +26,13 @@ trait Node {
         $size = 0;
         $write = [];
         $boundary = Core::uuid() . '-' . Core::uuid();
-        $write[] = $boundary;
+        $header = (object) [
+            'boundary' => $boundary,
+            'time' => time(),
+            'include' => $options->include ?? [],
+            'exclude' => $options->exclude ?? [],
+        ];
+        $write[] = Core::object($header, Core::JSON);
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
@@ -34,6 +40,17 @@ trait Node {
                 $file->chmod = File::rights($file->url);
                 $file->extension = File::extension($file->url);
                 $file->basename = File::basename($file->url, $file->extension);
+                $is_entry = false;
+
+                if(!empty($options->include) && in_array($file->basename, $options->include, true)){
+                    $is_entry = true;
+                }
+                if(!empty($options->exclude) && in_array($file->basename, $options->exclude, true)){
+                    $is_entry = false;
+                }
+                if(empty($options->include) && empty($options->exclude)){
+                    $is_entry = true;
+                }
                 $file->size = File::size($file->url);
                 $write[] = $boundary . '-1';
                 $write[] = Core::object($file, Core::JSON);
@@ -46,7 +63,11 @@ trait Node {
         }
         $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
-        File::write($dir_output . 'Node.json', implode("\n", $write));
+        $write = mb_str_split(gzencode(implode("\n", $write), 9), 1024 * 1024 * 25); //split data in 25 MB chunks
+        $chunk_count = count($write);
+        for($i = 0; $i < $chunk_count; $i++){
+            File::write($dir_output . 'Node-'. $i .'.json', $write[$i]);
+        }
         d(File::size_format($size));
         ddd($count);
     }
