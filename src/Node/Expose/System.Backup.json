@@ -1,0 +1,166 @@
+{
+    "System": {
+        "Backup": {
+            "count": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "create": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "list": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "page": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "patch": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "put": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "read": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            },
+            "record": {
+                "output": [
+                    {
+                        "role": "ROLE_SYSTEM",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    },
+                    {
+                        "role": "ROLE_ADMIN",
+                        "property": [
+                            "uuid",
+                            "#class",
+                            "options"
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

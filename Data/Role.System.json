@@ -1,0 +1,183 @@
+{
+  "name" : "ROLE_SYSTEM",
+  "rank" : 1,
+  "#class": "Account.Role",
+  "permission": [
+    {
+      "name": "System:Backup:import",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:record",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:record.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:create",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:create.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:count",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:count.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:commit",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:delete.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:read",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:read.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:put",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:put.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:patch",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:patch.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:page",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:page.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:property.delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:list",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:list.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:rename",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:import",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:record",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:record.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:create",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:create.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:count",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:count.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:commit",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:delete.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:read",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:read.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:put",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:put.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:patch",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:patch.many",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:page",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:page.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action::property.delete",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:list",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:list.relation",
+      "#class": "Account.Permission"
+    },
+    {
+      "name": "System:Backup:Action:rename",
+      "#class": "Account.Permission"
+    }
+  ]
+}
