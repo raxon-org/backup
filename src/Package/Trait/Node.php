@@ -51,7 +51,8 @@ trait Node {
             $data .= File::read($file->url);
         }
         $data = gzdecode($data);
-        ddd($data);
+        $data = explode("\n", $data);
+        ddd($data[0]);
     }
 
 
