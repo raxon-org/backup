@@ -68,7 +68,7 @@ trait Node {
         for($i = 0; $i < $chunk_count; $i++){
             File::write($dir_output . 'Node-'. $i .'.json', $write[$i]);
         }
-        echo 'Written: ( ' . $chunk_count . ' files)' . File::size_format($size) . PHP_EOL;
+        echo 'Written: ( ' . $count . ' files)' . File::size_format($size) . PHP_EOL;
     }
 }
 
