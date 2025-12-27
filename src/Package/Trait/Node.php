@@ -23,10 +23,12 @@ trait Node {
         $read = $dir->read($directory, true);
         $list = [];
         foreach($read as $nr => $file){
-            $file->owner = File::owner($file->url);
-            $file->group = File::group($file->url);
-            $file->chmod = File::rights($file->url);
-            ddd($file);
+            if($file->type == File::TYPE){
+                $file->owner = File::owner($file->url);
+                $file->group = File::group($file->url);
+                $file->chmod = File::rights($file->url);
+                ddd($file);
+            }
         }
     }
 }
