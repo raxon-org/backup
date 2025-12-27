@@ -62,9 +62,13 @@ trait Node {
                 continue;
             }
             if($line === $boundary . '-2'){
-                if(array_key_exists(0, $collection)){
-                    ddd($collection);
-                }
+                $file_info = Core::object(implode("\n", $collection), Core::OBJECT);
+                $is_collect = true;
+                $collection = [];
+                continue;
+            }
+            if($line === $boundary . '-3'){
+                ddd($collection);
                 $is_collect = true;
                 $collection = [];
                 continue;
