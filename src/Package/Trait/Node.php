@@ -66,6 +66,7 @@ trait Node {
                     ddd($collection);
                 }
                 $is_collect = true;
+                $collection = [];
                 continue;
             }
             if($is_collect){
