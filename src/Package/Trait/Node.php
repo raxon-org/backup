@@ -23,15 +23,21 @@ trait Node {
         $read = $dir->read($directory, true);
         $list = [];
         $count = 0;
+        $size = 0;
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
                 $file->group = File::group($file->url);
                 $file->chmod = File::rights($file->url);
+                $file->extension = File::extension($file->url);
+                $file->basename = File::basename($file->url);
+                $file->size = File::size($file->url);
+                $size += $file->size;
                 $list[] = $file;
                 $count++;
             }
         }
+        d(File::size_format($size));
         ddd($count);
     }
 }
