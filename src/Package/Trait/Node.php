@@ -23,6 +23,8 @@ trait Node {
         $read = $dir->read($directory, true);
         $list = [];
         foreach($read as $nr => $file){
+            $file->owner = File::owner($file->url);
+            $file->permission = File::rights($file->url);
             ddd($file);
         }
     }
