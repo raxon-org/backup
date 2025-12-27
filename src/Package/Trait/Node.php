@@ -53,6 +53,16 @@ trait Node {
         $data = gzdecode($data);
         $data = explode("\n", $data);
         $header = Core::object($data[0], Core::OBJECT);
+        $boundary = $header->boundary ?? null;
+        $is_collect = false;
+        foreach($data as $nr => $line){
+            if($line === $boundary . '-1'){
+                $is_collect = true;
+            }
+            if($is_collect){
+                breakpoint($line);
+            }
+        }
         ddd($header);
         d('yes');
     }
