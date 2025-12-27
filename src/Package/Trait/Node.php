@@ -17,7 +17,7 @@ trait Node {
     {
         Core::interactive();
         $object = $this->object();
-        $directory = $object->config();
+        $directory = $object->config('project.volume.dir.node');
         ddd($directory);
     }
 }
