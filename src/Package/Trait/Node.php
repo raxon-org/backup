@@ -68,6 +68,7 @@ trait Node {
         $boundary = false;
         $is_collect = false;
         $is_data = false;
+        $is_extended = false;
         $collection = [];
         foreach($list as $nr => $file){
             $read = File::read($file->url);
@@ -117,10 +118,16 @@ trait Node {
                         $file = false;
                         continue;
                     }
+                    if($is_extended){
+                        breakpoint($line);
+                        breakpoint($collection);
+                        $is_extended = false;
+                    }
                     if($is_collect){
                         $collection[] = $line;
                     }
                 }
+                $is_extended = true;
             }
         }
     }
