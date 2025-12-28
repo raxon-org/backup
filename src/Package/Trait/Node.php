@@ -97,7 +97,7 @@ trait Node {
                         $explode = explode('/' . $file->name, $file->url);
                         $file->dir = $explode[0] . '/';
                         if(property_exists($options, 'target')){
-                            $file->dir = $options->target;
+                            $file->dir = str_replace($header->directory, $options->target, $file->dir);
                         }
                         Dir::create($file->dir, Dir::CHMOD);
                         $target = $file->dir . $file->name;
@@ -148,6 +148,7 @@ trait Node {
             'time' => time(),
             'include' => $options->include ?? [],
             'exclude' => $options->exclude ?? [],
+            'directory' => $directory,
         ];
         $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
