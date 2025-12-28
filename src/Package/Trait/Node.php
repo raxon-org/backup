@@ -106,6 +106,7 @@ trait Node {
                         if(!property_exists($file_info, 'chmod')){
                             ddd($file_info);
                         }
+                        ddd($file_info);
                         File::write($target, $write);
                         File::chmod($target, $file_info->chmod);
                         File::chown($target, $file_info->owner, $file_info->group);
