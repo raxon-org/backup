@@ -120,6 +120,8 @@ trait Node {
         $read = $dir->read($directory, true);
         $read = Sort::list($read)->with(['url' => Sort::ASC]);
         $count = 0;
+        $number = 0;
+        $max = count($read);
         $size = 0;
         $write = [];
         $boundary = Core::uuid() . '-' . Core::uuid();
@@ -129,7 +131,10 @@ trait Node {
             'include' => $options->include ?? [],
             'exclude' => $options->exclude ?? [],
         ];
-        $write[] = Core::object($header, Core::JSON_LINE);
+        $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
+        Dir::create($dir_output, Dir::CHMOD);
+        $url = $dir_output . 'Node-'. $number .'.backup';
+        File::append($url, Core::object($header, Core::JSON_LINE));
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
@@ -149,23 +154,25 @@ trait Node {
                     $is_entry = true;
                 }
                 $file->size = File::size($file->url);
-                $write[] = $boundary . '-1';
-                $write[] = Core::object($file, Core::JSON_LINE);
-                $write[] = $boundary . '-2';
-                $write[] = File::read($file->url);
-                $write[] = $boundary . '-3';
-                $size += $file->size;
-                $count++;
+                File::append($url, $boundary . '-1' . PHP_EOL);
+                File::append($url, Core::object($file, Core::JSON_LINE) . PHP_EOL);
+                File::append($url, $boundary . '-2' . PHP_EOL);
+                $data = mb_str_split(gzencode(File::read($file->url), 9), 1024 * 5);
+                $data_count = count($data);
+                foreach($data as $data_nr => $part){
+                    File::append($url, $part . PHP_EOL);
+                    if($data_count !== $data_nr + 1){
+                        $number++;
+                        $url = $dir_output . 'Node-'. $number . '.backup';
+                    }
+                }
+                File::append($url, $boundary . '-3' . PHP_EOL);
+                if(File::size($url) > (1024 * 5)){
+                    $number++;
+                    $url = $dir_output . 'Node-'. $number . '.backup';
+                }
             }
         }
-        $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
-        Dir::create($dir_output, Dir::CHMOD);
-        $write = mb_str_split(gzencode(implode("\n", $write), 9), 1024 * 1024 * 25); //split data in 25 MB chunks
-        $chunk_count = count($write);
-        for($i = 0; $i < $chunk_count; $i++){
-            File::write($dir_output . 'Node-'. $i .'.backup', $write[$i]);
-        }
-        echo 'Written: ( ' . $count . ' files) ' . File::size_format($size) . PHP_EOL;
     }
 }
 
