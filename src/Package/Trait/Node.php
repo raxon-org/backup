@@ -96,6 +96,7 @@ trait Node {
                         }
                         Dir::create($file->dir, Dir::CHMOD);
                         $target = $file->dir . $file->name;
+                        ddd($collection);
                         $write = gzdecode(implode("\n", $collection));
                         ddd($write);
                         File::write($target, $write);
