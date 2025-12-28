@@ -135,6 +135,9 @@ trait Node {
         $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
         $url = $dir_output . 'Node-'. $number .'.backup';
+        if(File::exist($url)){
+            throw new Exception('Backup file already exists: ' . $url);
+        }
         File::append($url, Core::object($header, Core::JSON_LINE) . PHP_EOL);
         echo 'Initializing backup...' . PHP_EOL .PHP_EOL;
         foreach($read as $nr => $file){
