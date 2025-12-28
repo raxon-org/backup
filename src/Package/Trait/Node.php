@@ -64,50 +64,52 @@ trait Node {
             throw new Exception('No backup files found in: ' . $options->source);
         }
         ksort($list, SORT_NATURAL);
-        $data = '';
+        $header = false;
+        $boundary = false;
         foreach($list as $nr => $file){
             $read = File::read($file->url);
-            ddd($read);
-        }
-        $data = gzdecode($data);
-        $data = explode("\n", $data);
-        $header = Core::object($data[0], Core::OBJECT);
-        $boundary = $header->boundary ?? null;
-        $is_collect = false;
-        $file = false;
-        $collection = [];
-        foreach($data as $nr => $line){
-            if($line === $boundary . '-1'){
-                $is_collect = true;
-                $collection = [];
-                continue;
+            $data = explode(PHP_EOL, $read);
+            if(!$header){
+                $header = Core::object($data[0], Core::OBJECT);
+                $boundary = $header->boundary ?? null;
             }
-            if($line === $boundary . '-2'){
-                $file = Core::object(implode("\n", $collection), Core::OBJECT);
-                $is_collect = true;
-                $collection = [];
-                continue;
-            }
-            if($line === $boundary . '-3' && $file){
-                $explode = explode('/' . $file->name, $file->url);
-                $file->dir = $explode[0] . '/';
-                if(property_exists($options, 'target')){
-                    $file->dir = $options->target;
+            if($boundary){
+                $is_collect = false;
+                foreach($data as $line){
+                    if($line === $boundary . '-1'){
+                        $is_collect = true;
+                        $collection = [];
+                        continue;
+                    }
+                    if($line === $boundary . '-2'){
+                        $file = Core::object(implode("\n", $collection), Core::OBJECT);
+                        $is_collect = true;
+                        $collection = [];
+                        continue;
+                    }
+                    if($line === $boundary . '-3' && $file){
+                        $explode = explode('/' . $file->name, $file->url);
+                        $file->dir = $explode[0] . '/';
+                        if(property_exists($options, 'target')){
+                            $file->dir = $options->target;
+                        }
+                        Dir::create($file->dir, Dir::CHMOD);
+                        $target = $file->dir . $file->name;
+                        $write = gzdecode(implode("\n", $collection));
+                        ddd($write);
+                        File::write($target, $write);
+                        File::chmod($target, $file->chmod);
+                        File::chown($target, $file->owner, $file->group);
+                        echo 'Restored: ' . $target . PHP_EOL;
+                        $is_collect = true;
+                        $collection = [];
+                        $file = false;
+                        continue;
+                    }
+                    if($is_collect){
+                        $collection[] = $line;
+                    }
                 }
-                Dir::create($file->dir, Dir::CHMOD);
-                $target = $file->dir . $file->name;
-                $write = implode("\n", $collection);
-                File::write($target, $write);
-                File::chmod($target, $file->chmod);
-                File::chown($target, $file->owner, $file->group);
-                echo 'Restored: ' . $target . PHP_EOL;
-                $is_collect = true;
-                $collection = [];
-                $file = false;
-                continue;
-            }
-            if($is_collect){
-                $collection[] = $line;
             }
         }
     }
