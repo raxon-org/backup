@@ -13,14 +13,16 @@ trait Node {
     public function node_restore(object $flags, object $options): void
     {
         Core::interactive();
-        $dir_output = '/mnt/Disk2/Media/Backup/';
+        if(!property_exists($options, 'source')){
+            $options->source = '/mnt/Disk2/Media/Backup/';
+        }
         if(!property_exists($options, 'date')){
-            $dir_output .= date('Ymd') . '/';
+            $options->source .= date('Ymd') . '/';
         } else {
-            $dir_output .= trim($options->date, '/') . '/';
+            $options->source .= trim($options->date, '/') . '/';
         }
         $dir = new Dir();
-        $read = $dir->read($dir_output, true);
+        $read = $dir->read($options->source, true);
         $list = [];
         foreach($read as $nr => $file) {
             if ($file->type == File::TYPE) {
@@ -63,15 +65,18 @@ trait Node {
                 continue;
             }
             if($line === $boundary . '-2'){
-                $file_info = Core::object(implode("\n", $collection), Core::OBJECT);
+                $file = Core::object(implode("\n", $collection), Core::OBJECT);
                 $is_collect = true;
                 $collection = [];
                 continue;
             }
             if($line === $boundary . '-3'){
-                $file_content = implode("\n", $collection);
-                File::write($file_info->url, $file_content);
-                echo 'Restored: ' . $file_info->basename . PHP_EOL;
+                ddd($file);
+                $write = implode("\n", $collection);
+                File::write($file->url, $write);
+                File::chmod($file->url, $file->chmod);
+                File::chown($file->url, $file->owner, $file->group);
+                echo 'Restored: ' . $file->basename . PHP_EOL;
                 $is_collect = true;
                 $collection = [];
                 continue;
