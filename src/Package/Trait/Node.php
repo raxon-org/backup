@@ -28,6 +28,9 @@ trait Node {
         }
         $dir = new Dir();
         $read = $dir->read($options->source, true);
+        if($read === false){
+            throw new Exception('Directory not found: ' . $options->source);
+        }
         $list = [];
         foreach($read as $nr => $file) {
             if ($file->type == File::TYPE) {
@@ -51,6 +54,9 @@ trait Node {
                     }
                 }
             }
+        }
+        if(!array_key_exists(0, $list)){
+            throw new Exception('No backup files found in: ' . $options->source);
         }
         ksort($list, SORT_NATURAL);
         $data = '';
