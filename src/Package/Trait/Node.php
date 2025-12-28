@@ -8,6 +8,8 @@ use Raxon\Module\Dir;
 use Raxon\Module\File;
 
 use Exception;
+use Raxon\Module\Sort;
+
 trait Node {
 
     public function node_restore(object $flags, object $options): void
@@ -110,6 +112,8 @@ trait Node {
 
         $dir = new Dir();
         $read = $dir->read($directory, true);
+        $read = Sort::list($read)->with(['url' => Sort::ASC]);
+        ddd($read);
         $list = [];
         $count = 0;
         $size = 0;
