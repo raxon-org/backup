@@ -77,12 +77,16 @@ trait Node {
             if($line === $boundary . '-3' && $file){
                 $explode = explode('/' . $file->name, $file->url);
                 $file->dir = $explode[0] . '/';
-                ddd($file);
+                if(property_exists($options, 'target')){
+                    $file->dir = $options->target;
+                }
+                Dir::create($file->dir, Dir::CHMOD);
+                $target = $file->dir . $file->name;
                 $write = implode("\n", $collection);
-                File::write($file->url, $write);
-                File::chmod($file->url, $file->chmod);
-                File::chown($file->url, $file->owner, $file->group);
-                echo 'Restored: ' . $file->basename . PHP_EOL;
+                File::write($target, $write);
+                File::chmod($target, $file->chmod);
+                File::chown($target, $file->owner, $file->group);
+                echo 'Restored: ' . $target . PHP_EOL;
                 $is_collect = true;
                 $collection = [];
                 $file = false;
