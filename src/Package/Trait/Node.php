@@ -171,6 +171,11 @@ trait Node {
                     $number++;
                     $url = $dir_output . 'Node-'. $number . '.backup';
                 }
+                $count++;
+                if($max > 0){
+                    $percentage = ($count / $max) * 100;
+                    echo 'Percentage: ' . number_format($percentage, 2) . '%' . PHP_EOL;
+                }
             }
         }
     }
