@@ -109,7 +109,8 @@ trait Node {
                         File::chmod($target, $file->chmod);
                         File::chown($target, $file->owner, $file->group);
                         echo 'Restored: ' . $target . PHP_EOL;
-                        $is_collect = true;
+                        $is_collect = false;
+                        $is_data = false;
                         $collection = [];
                         $file = false;
                         continue;
@@ -117,9 +118,6 @@ trait Node {
                     if($is_collect){
                         $collection[] = $line;
                     }
-                }
-                if($is_data){
-                    array_pop($collection);
                 }
             }
         }
@@ -185,13 +183,13 @@ trait Node {
                     $data = mb_str_split(File::read($file->url), 1024 * 5);
                     $data_count = count($data);
                     foreach($data as $data_nr => $part){
-                        File::append($url, $part . PHP_EOL);
+                        File::append($url, $part);
                         if($data_count !== $data_nr + 1){
                             $number++;
                             $url = $dir_output . 'Node-'. $number . '.backup';
                         }
                     }
-                    File::append($url, $boundary . '-3' . PHP_EOL);
+                    File::append($url, PHP_EOL . $boundary . '-3' . PHP_EOL);
                     if(File::size($url) > (1024 * 5)){
                         $number++;
                         $url = $dir_output . 'Node-'. $number . '.backup';
