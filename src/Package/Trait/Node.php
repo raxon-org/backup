@@ -166,10 +166,6 @@ trait Node {
                             $number++;
                             $url = $dir_output . 'Node-'. $number . '.backup';
                         }
-                        if(File::size($url) > (1024 * 5)){
-                            $number++;
-                            $url = $dir_output . 'Node-'. $number . '.backup';
-                        }
                     }
                     File::append($url, $boundary . '-3' . PHP_EOL);
                     if(File::size($url) > (1024 * 5)){
