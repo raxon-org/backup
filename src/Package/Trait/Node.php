@@ -21,6 +21,9 @@ trait Node {
         } else {
             $options->source .= trim($options->date, '/') . '/';
         }
+        if(property_exists($options, 'target') && !str_ends_with($options->target, '/')){
+            $options->target .= '/';
+        }
         $dir = new Dir();
         $read = $dir->read($options->source, true);
         $list = [];
@@ -57,6 +60,7 @@ trait Node {
         $header = Core::object($data[0], Core::OBJECT);
         $boundary = $header->boundary ?? null;
         $is_collect = false;
+        $file = false;
         $collection = [];
         foreach($data as $nr => $line){
             if($line === $boundary . '-1'){
@@ -70,7 +74,9 @@ trait Node {
                 $collection = [];
                 continue;
             }
-            if($line === $boundary . '-3'){
+            if($line === $boundary . '-3' && $file){
+                $explode = explode('/' . $file->name, $file->url);
+                $file->dir = $explode[0] . '/';
                 ddd($file);
                 $write = implode("\n", $collection);
                 File::write($file->url, $write);
@@ -79,6 +85,7 @@ trait Node {
                 echo 'Restored: ' . $file->basename . PHP_EOL;
                 $is_collect = true;
                 $collection = [];
+                $file = false;
                 continue;
             }
             if($is_collect){
