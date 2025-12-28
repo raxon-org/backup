@@ -85,7 +85,6 @@ trait Node {
                         $file = Core::object(implode("\n", $collection), Core::OBJECT);
                         $is_collect = true;
                         $collection = [];
-                        ddd($file);
                         continue;
                     }
                     if($line === $boundary . '-3' && $file){
