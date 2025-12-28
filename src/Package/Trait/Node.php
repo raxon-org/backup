@@ -119,8 +119,6 @@ trait Node {
         $dir = new Dir();
         $read = $dir->read($directory, true);
         $read = Sort::list($read)->with(['url' => Sort::ASC]);
-        ddd($read);
-        $list = [];
         $count = 0;
         $size = 0;
         $write = [];
