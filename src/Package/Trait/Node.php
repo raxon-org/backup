@@ -66,6 +66,7 @@ trait Node {
         ksort($list, SORT_NATURAL);
         $header = false;
         $boundary = false;
+        $file_info = false;
         $is_collect = false;
         $is_extended = false;
         $collection = [];
@@ -84,34 +85,34 @@ trait Node {
                         continue;
                     }
                     if($line === $boundary . '-2'){
-                        $file = Core::object(implode(PHP_EOL, $collection), Core::OBJECT);
+                        $file_info = Core::object(implode(PHP_EOL, $collection), Core::OBJECT);
                         $is_collect = true;
                         $collection = [];
                         continue;
                     }
                     if(
                         $line === $boundary . '-3' &&
-                        $file
+                        $file_info
                     ){
-                        $explode = explode('/' . $file->name, $file->url);
-                        $file->dir = $explode[0] . '/';
+                        $explode = explode('/' . $file_info->name, $file_info->url);
+                        $file_info->dir = $explode[0] . '/';
                         if(property_exists($options, 'target')){
-                            $file->dir = str_replace($header->directory, $options->target, $file->dir);
+                            $file_info->dir = str_replace($header->directory, $options->target, $file_info->dir);
                         }
-                        Dir::create($file->dir, Dir::CHMOD);
-                        $target = $file->dir . $file->name;
+                        Dir::create($file_info->dir, Dir::CHMOD);
+                        $target = $file_info->dir . $file_info->name;
                         $collection = implode(PHP_EOL, $collection);
                         $write = gzdecode($collection);
-                        if(!property_exists($file, 'chmod')){
-                            ddd($file);
+                        if(!property_exists($file_info, 'chmod')){
+                            ddd($file_info);
                         }
                         File::write($target, $write);
-                        File::chmod($target, $file->chmod);
-                        File::chown($target, $file->owner, $file->group);
+                        File::chmod($target, $file_info->chmod);
+                        File::chown($target, $file_info->owner, $file_info->group);
                         echo 'Restored: ' . $target . PHP_EOL;
                         $is_collect = false;
                         $collection = [];
-                        $file = false;
+                        $file_info = false;
                         continue;
                     }
                     if($is_extended){
