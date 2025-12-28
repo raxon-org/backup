@@ -111,8 +111,8 @@ trait Node {
                         File::chown($target, $file_info->owner, $file_info->group);
                         echo 'Restored: ' . $target . PHP_EOL;
                         $is_collect = false;
-                        $collection = [];
                         $file_info = false;
+                        $collection = [];
                         continue;
                     }
                     if($is_extended){
