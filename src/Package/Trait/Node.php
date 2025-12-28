@@ -92,8 +92,7 @@ trait Node {
                     }
                     if(
                         $line === $boundary . '-3' &&
-                        $file &&
-                        is_array($collection)
+                        $file
                     ){
                         $explode = explode('/' . $file->name, $file->url);
                         $file->dir = $explode[0] . '/';
