@@ -119,8 +119,9 @@ trait Node {
                         continue;
                     }
                     if($is_extended){
-                        breakpoint($line);
-                        breakpoint($collection);
+                        $collection_last = array_pop($collection);
+                        $collection_last .= $line;
+                        $collection[] = $collection_last;
                         $is_extended = false;
                     }
                     if($is_collect){
