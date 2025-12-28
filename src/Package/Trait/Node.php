@@ -102,6 +102,7 @@ trait Node {
                         $target = $file->dir . $file->name;
                         $collection = implode(PHP_EOL, $collection);
                         $write = gzdecode($collection);
+                        ddd($file);
                         File::write($target, $write);
                         File::chmod($target, $file->chmod);
                         File::chown($target, $file->owner, $file->group);
