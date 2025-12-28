@@ -66,6 +66,8 @@ trait Node {
         ksort($list, SORT_NATURAL);
         $header = false;
         $boundary = false;
+        $is_collect = false;
+        $is_data = false;
         foreach($list as $nr => $file){
             $read = File::read($file->url);
             $data = explode(PHP_EOL, $read);
@@ -74,7 +76,6 @@ trait Node {
                 $boundary = $header->boundary ?? null;
             }
             if($boundary){
-                $is_collect = false;
                 foreach($data as $line){
                     if($line === $boundary . '-1'){
                         $is_collect = true;
@@ -84,6 +85,7 @@ trait Node {
                     if($line === $boundary . '-2'){
                         $file = Core::object(implode(PHP_EOL, $collection), Core::OBJECT);
                         $is_collect = true;
+                        $is_data = true;
                         $collection = [];
                         continue;
                     }
@@ -113,6 +115,7 @@ trait Node {
                         $collection[] = $line;
                     }
                 }
+                breakpoint($collection);
             }
         }
     }
