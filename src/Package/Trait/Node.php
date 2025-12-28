@@ -123,6 +123,7 @@ trait Node {
                         $collection_last .= $line;
                         $collection[] = $collection_last;
                         $is_extended = false;
+                        continue;
                     }
                     if($is_collect){
                         $collection[] = $line;
