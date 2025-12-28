@@ -134,7 +134,7 @@ trait Node {
         $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
         $url = $dir_output . 'Node-'. $number .'.backup';
-        File::append($url, Core::object($header, Core::JSON_LINE));
+        File::append($url, Core::object($header, Core::JSON_LINE) . PHP_EOL);
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
@@ -163,6 +163,10 @@ trait Node {
                     foreach($data as $data_nr => $part){
                         File::append($url, $part . PHP_EOL);
                         if($data_count !== $data_nr + 1){
+                            $number++;
+                            $url = $dir_output . 'Node-'. $number . '.backup';
+                        }
+                        if(File::size($url) > (1024 * 5)){
                             $number++;
                             $url = $dir_output . 'Node-'. $number . '.backup';
                         }
