@@ -82,7 +82,7 @@ trait Node {
                         continue;
                     }
                     if($line === $boundary . '-2'){
-                        $file = Core::object(implode("\n", $collection), Core::OBJECT);
+                        $file = Core::object(implode(PHP_EOL, $collection), Core::OBJECT);
                         $is_collect = true;
                         $collection = [];
                         continue;
@@ -96,7 +96,7 @@ trait Node {
                         Dir::create($file->dir, Dir::CHMOD);
                         $target = $file->dir . $file->name;
                         ddd($collection);
-                        $write = gzdecode(implode("\n", $collection));
+                        $write = gzdecode(implode(PHP_EOL, $collection));
                         ddd($write);
                         File::write($target, $write);
                         File::chmod($target, $file->chmod);
