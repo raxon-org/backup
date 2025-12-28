@@ -90,7 +90,6 @@ trait Node {
                         continue;
                     }
                     if($line === $boundary . '-3' && $file){
-                        ddd($collection);
                         $explode = explode('/' . $file->name, $file->url);
                         $file->dir = $explode[0] . '/';
                         if(property_exists($options, 'target')){
@@ -99,7 +98,6 @@ trait Node {
                         Dir::create($file->dir, Dir::CHMOD);
                         $target = $file->dir . $file->name;
                         $collection = implode(PHP_EOL, $collection);
-                        breakpoint($collection);
                         $write = gzdecode($collection);
                         ddd($write);
                         File::write($target, $write);
@@ -178,8 +176,8 @@ trait Node {
                     File::append($url, $boundary . '-1' . PHP_EOL);
                     File::append($url, Core::object($file, Core::JSON_LINE) . PHP_EOL);
                     File::append($url, $boundary . '-2' . PHP_EOL);
-//                    $data = mb_str_split(gzencode(File::read($file->url), 9), 1024 * 5);
-                    $data = mb_str_split(File::read($file->url), 1024 * 5);
+                    $data = mb_str_split(gzencode(File::read($file->url), 9), 1024 * 5);
+//                    $data = mb_str_split(File::read($file->url), 1024 * 5);
                     $data_count = count($data);
                     foreach($data as $data_nr => $part){
                         File::append($url, $part . PHP_EOL);
