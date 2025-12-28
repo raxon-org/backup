@@ -101,6 +101,7 @@ trait Node {
                         }
                         Dir::create($file->dir, Dir::CHMOD);
                         $target = $file->dir . $file->name;
+                        ddd($collection);
                         $collection = implode(PHP_EOL, $collection);
                         ddd($collection);
                         $write = gzdecode($collection);
