@@ -176,6 +176,8 @@ trait Node {
                     $percentage = ($count / $max) * 100;
                     echo 'Percentage: ' . number_format($percentage, 2) . '%' . PHP_EOL;
                 }
+            } else {
+                $max--;
             }
         }
     }
