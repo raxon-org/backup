@@ -153,29 +153,34 @@ trait Node {
                 if(empty($options->include) && empty($options->exclude)){
                     $is_entry = true;
                 }
-                $file->size = File::size($file->url);
-                File::append($url, $boundary . '-1' . PHP_EOL);
-                File::append($url, Core::object($file, Core::JSON_LINE) . PHP_EOL);
-                File::append($url, $boundary . '-2' . PHP_EOL);
-                $data = mb_str_split(gzencode(File::read($file->url), 9), 1024 * 5);
-                $data_count = count($data);
-                foreach($data as $data_nr => $part){
-                    File::append($url, $part . PHP_EOL);
-                    if($data_count !== $data_nr + 1){
+                if($is_entry){
+                    $file->size = File::size($file->url);
+                    File::append($url, $boundary . '-1' . PHP_EOL);
+                    File::append($url, Core::object($file, Core::JSON_LINE) . PHP_EOL);
+                    File::append($url, $boundary . '-2' . PHP_EOL);
+                    $data = mb_str_split(gzencode(File::read($file->url), 9), 1024 * 5);
+                    $data_count = count($data);
+                    foreach($data as $data_nr => $part){
+                        File::append($url, $part . PHP_EOL);
+                        if($data_count !== $data_nr + 1){
+                            $number++;
+                            $url = $dir_output . 'Node-'. $number . '.backup';
+                        }
+                    }
+                    File::append($url, $boundary . '-3' . PHP_EOL);
+                    if(File::size($url) > (1024 * 5)){
                         $number++;
                         $url = $dir_output . 'Node-'. $number . '.backup';
                     }
+                    $count++;
+                    if($max > 0){
+                        $percentage = ($count / $max) * 100;
+                        echo 'Percentage: ' . number_format($percentage, 2) . '%' . PHP_EOL;
+                    }
+                } else {
+                    $max--;
                 }
-                File::append($url, $boundary . '-3' . PHP_EOL);
-                if(File::size($url) > (1024 * 5)){
-                    $number++;
-                    $url = $dir_output . 'Node-'. $number . '.backup';
-                }
-                $count++;
-                if($max > 0){
-                    $percentage = ($count / $max) * 100;
-                    echo 'Percentage: ' . number_format($percentage, 2) . '%' . PHP_EOL;
-                }
+
             } else {
                 $max--;
             }
