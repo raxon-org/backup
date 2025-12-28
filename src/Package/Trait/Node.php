@@ -115,7 +115,9 @@ trait Node {
                         $collection[] = $line;
                     }
                 }
-                breakpoint($collection);
+                if($is_data){
+                    array_pop($collection);
+                }
             }
         }
     }
