@@ -67,7 +67,6 @@ trait Node {
         $header = false;
         $boundary = false;
         $is_collect = false;
-        $is_data = false;
         $is_extended = false;
         $collection = [];
         foreach($list as $nr => $file){
@@ -87,7 +86,6 @@ trait Node {
                     if($line === $boundary . '-2'){
                         $file = Core::object(implode(PHP_EOL, $collection), Core::OBJECT);
                         $is_collect = true;
-                        $is_data = true;
                         $collection = [];
                         continue;
                     }
@@ -104,13 +102,11 @@ trait Node {
                         $target = $file->dir . $file->name;
                         $collection = implode(PHP_EOL, $collection);
                         $write = gzdecode($collection);
-                        ddd($write);
                         File::write($target, $write);
                         File::chmod($target, $file->chmod);
                         File::chown($target, $file->owner, $file->group);
                         echo 'Restored: ' . $target . PHP_EOL;
                         $is_collect = false;
-                        $is_data = false;
                         $collection = [];
                         $file = false;
                         continue;
