@@ -3,6 +3,7 @@ namespace Package\Raxon\Backup\Trait;
 
 use Raxon\App;
 
+use Raxon\Module\Cli;
 use Raxon\Module\Core;
 use Raxon\Module\Dir;
 use Raxon\Module\File;
@@ -135,6 +136,7 @@ trait Node {
         Dir::create($dir_output, Dir::CHMOD);
         $url = $dir_output . 'Node-'. $number .'.backup';
         File::append($url, Core::object($header, Core::JSON_LINE) . PHP_EOL);
+        echo 'Initializing backup...' . PHP_EOL .PHP_EOL;
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
                 $file->owner = File::owner($file->url);
@@ -175,6 +177,7 @@ trait Node {
                     $count++;
                     if($max > 0){
                         $percentage = ($count / $max) * 100;
+                        echo Cli::tput('cursor.up');
                         echo 'Percentage: ' . number_format($percentage, 2) . '%' . PHP_EOL;
                     }
                 } else {
