@@ -47,7 +47,11 @@ trait Node {
                 if (empty($options->include) && empty($options->exclude)) {
                     $is_entry = true;
                 }
-                if (stristr($file->basename, 'Node-') !== false && $file->extension == 'backup' && $is_entry) {
+                if (
+                    stristr($file->basename, 'Node-') !== false &&
+                    $file->extension == 'backup' &&
+                    $is_entry
+                ) {
                     $explode = explode('Node-', $file->basename);
                     if(array_key_exists(1, $explode)){
                         $number = (int) $explode[1];
@@ -62,7 +66,8 @@ trait Node {
         ksort($list, SORT_NATURAL);
         $data = '';
         foreach($list as $nr => $file){
-            $data .= File::read($file->url);
+            $read = File::read($file->url);
+            ddd($read);
         }
         $data = gzdecode($data);
         $data = explode("\n", $data);
