@@ -68,6 +68,7 @@ trait Node {
         $boundary = false;
         $is_collect = false;
         $is_data = false;
+        $collection = [];
         foreach($list as $nr => $file){
             $read = File::read($file->url);
             $data = explode(PHP_EOL, $read);
@@ -89,7 +90,11 @@ trait Node {
                         $collection = [];
                         continue;
                     }
-                    if($line === $boundary . '-3' && $file){
+                    if(
+                        $line === $boundary . '-3' &&
+                        $file &&
+                        is_array($collection)
+                    ){
                         $explode = explode('/' . $file->name, $file->url);
                         $file->dir = $explode[0] . '/';
                         if(property_exists($options, 'target')){
