@@ -108,7 +108,7 @@ trait Node {
                         if(!property_exists($file_info, 'chmod')){
                             ddd($file_info);
                         }
-                        $file_info->chmod = sprintf('%o',$file_info->chmod);
+                        $file_info->chmod = octdec($file_info->chmod);
                         ddd($file_info);
                         File::write($target, $write);
                         File::chmod($target, sprintf('%o',$file_info->chmod));
