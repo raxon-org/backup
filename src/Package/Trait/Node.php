@@ -158,6 +158,9 @@ trait Node {
             'exclude' => $options->exclude ?? [],
             'directory' => $directory,
         ];
+        $dir_backup = $object->config('project.dir.backup');
+        ddd($dir_backup);
+
         $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
         $url = $dir_output . 'Node-'. $number .'.backup';
