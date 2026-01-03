@@ -108,7 +108,7 @@ trait Node {
                         }
                         ddd($file_info);
                         File::write($target, $write);
-                        File::chmod($target, $file_info->chmod);
+                        File::chmod($target, sprintf('%o',$file_info->chmod));
                         File::chown($target, $file_info->owner, $file_info->group);
                         echo 'Restored: ' . $target . PHP_EOL;
                         $is_collect = false;
@@ -140,8 +140,9 @@ trait Node {
     {
         Core::interactive();
         $object = $this->object();
-        $directory = $object->config('project.volume.dir.node');
+        $directory = $object->config('project.dir.node');
 
+        breakpoint($directory);
         $dir = new Dir();
         $read = $dir->read($directory, true);
         $read = Sort::list($read)->with(['url' => Sort::ASC]);
@@ -159,9 +160,9 @@ trait Node {
             'directory' => $directory,
         ];
         $dir_backup = $object->config('project.dir.backup');
-        ddd($dir_backup);
+        $dir_backup_data = $dir_backup . 'Data/';
 
-        $dir_output = '/mnt/Disk2/Media/Backup/' . date('Ymd') . '/';
+        $dir_output = $dir_backup_data. date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
         $url = $dir_output . 'Node-'. $number .'.backup';
         if(File::exist($url)){
