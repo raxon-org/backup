@@ -109,9 +109,8 @@ trait Node {
                             ddd($file_info);
                         }
                         $file_info->chmod = octdec($file_info->chmod);
-                        ddd($file_info);
                         File::write($target, $write);
-                        File::chmod($target, sprintf('%o',$file_info->chmod));
+                        File::chmod($target, $file_info->chmod);
                         File::chown($target, $file_info->owner, $file_info->group);
                         echo 'Restored: ' . $target . PHP_EOL;
                         $is_collect = false;
