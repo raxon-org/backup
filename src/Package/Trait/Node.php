@@ -141,8 +141,6 @@ trait Node {
         Core::interactive();
         $object = $this->object();
         $directory = $object->config('project.dir.node');
-
-        breakpoint($directory);
         $dir = new Dir();
         $read = $dir->read($directory, true);
         $read = Sort::list($read)->with(['url' => Sort::ASC]);
@@ -162,7 +160,7 @@ trait Node {
         $dir_backup = $object->config('project.dir.backup');
         $dir_backup_data = $dir_backup . 'Data/';
 
-        $dir_output = $dir_backup_data. date('Ymd') . '/';
+        $dir_output = $dir_backup_data . date('Ymd') . '/';
         Dir::create($dir_output, Dir::CHMOD);
         $url = $dir_output . 'Node-'. $number .'.backup';
         if(File::exist($url)){
