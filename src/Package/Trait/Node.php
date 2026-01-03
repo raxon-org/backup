@@ -15,9 +15,11 @@ trait Node {
 
     public function node_restore(object $flags, object $options): void
     {
+        $object = $this->object();
         Core::interactive();
         if(!property_exists($options, 'source')){
-            $options->source = '/mnt/Disk2/Media/Backup/';
+            $dir_backup = $object->config('project.dir.backup');
+            $options->source = $dir_backup . 'Data/';
         }
         if(!property_exists($options, 'date')){
             $options->source .= date('Ymd') . '/';
