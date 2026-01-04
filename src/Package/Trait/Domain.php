@@ -15,7 +15,7 @@ trait Domain {
     const CHUNK_SIZE = 1024 * 1024 * 5; // 5 MB
     const BACKUP_DIRECTORY_AFFIX = 'Domain/';
     const BACKUP_FILE_PREFIX = 'Domain-';
-    public function data_restore(object $flags, object $options): void
+    public function domain_restore(object $flags, object $options): void
     {
         $object = $this->object();
         Core::interactive();
@@ -139,7 +139,7 @@ trait Domain {
     /**
      * @throws Exception
      */
-    public function data_create(object $flags, object $options): void
+    public function domain_create(object $flags, object $options): void
     {
         Core::interactive();
         $object = $this->object();
