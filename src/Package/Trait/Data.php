@@ -145,8 +145,8 @@ trait Data {
         $object = $this->object();
         $directory = $object->config('project.dir.data');
         $dir = new Dir();
-        if(property_exists($options, 'ignore')){
-            $dir->ignore($options->ignore);
+        if(property_exists($options, 'exclude')){
+            $dir->ignore($options->exclude);
         }
         $read = $dir->read($directory, true);
         $read = Sort::list($read)->with(['url' => Sort::ASC]);

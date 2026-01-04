@@ -11,12 +11,11 @@ use Raxon\Module\File;
 use Exception;
 use Raxon\Module\Sort;
 
-trait Node {
+trait Domain {
     const CHUNK_SIZE = 1024 * 1024 * 5; // 5 MB
-    const BACKUP_DIRECTORY_AFFIX = 'Node/';
-    const BACKUP_FILE_PREFIX = 'Node-';
-
-    public function node_restore(object $flags, object $options): void
+    const BACKUP_DIRECTORY_AFFIX = 'Domain/';
+    const BACKUP_FILE_PREFIX = 'Domain-';
+    public function data_restore(object $flags, object $options): void
     {
         $object = $this->object();
         Core::interactive();
@@ -54,7 +53,7 @@ trait Node {
                 }
                 if (
                     stristr($file->basename, self::BACKUP_FILE_PREFIX) !== false &&
-                    $file->extension == 'backup' &&
+                    $file->extension === 'backup' &&
                     $is_entry
                 ) {
                     $explode = explode(self::BACKUP_FILE_PREFIX, $file->basename);
@@ -137,15 +136,14 @@ trait Node {
         }
     }
 
-
     /**
      * @throws Exception
      */
-    public function node_create(object $flags, object $options): void
+    public function data_create(object $flags, object $options): void
     {
         Core::interactive();
         $object = $this->object();
-        $directory = $object->config('project.dir.node');
+        $directory = $object->config('project.dir.domain');
         $dir = new Dir();
         if(property_exists($options, 'exclude')){
             $dir->ignore($options->exclude);
@@ -174,7 +172,7 @@ trait Node {
             'data' => $dir_backup_data,
             'output' => $dir_output,
         ]);
-        $url = $dir_output . self::BACKUP_FILE_PREFIX . $number .'.backup';
+        $url = $dir_output . self::BACKUP_FILE_PREFIX. $number .'.backup';
         if(File::exist($url)){
             throw new Exception('Backup file already exists: ' . $url);
         }
@@ -191,6 +189,7 @@ trait Node {
                 $file->extension = File::extension($file->url);
                 $file->basename = File::basename($file->url, $file->extension);
                 $is_entry = false;
+
                 if(!empty($options->include) && in_array($file->basename, $options->include, true)){
                     $is_entry = true;
                 }
@@ -208,7 +207,7 @@ trait Node {
                     File::permission($object, [
                         'url' => $url,
                     ]);
-                    $data = mb_str_split(gzencode(File::read($file->url), 9), self::CHUNK_SIZE);
+                    $data = mb_str_split(gzencode(File::read($file->url), 9),  self::CHUNK_SIZE);
                     $data_count = count($data);
                     foreach($data as $data_nr => $part){
                         File::append($url, $part);
@@ -243,4 +242,3 @@ trait Node {
         }
     }
 }
-
