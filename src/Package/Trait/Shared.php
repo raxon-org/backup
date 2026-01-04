@@ -11,7 +11,7 @@ use Raxon\Module\File;
 use Exception;
 use Raxon\Module\Sort;
 
-trait Log {
+trait Shared {
     const CHUNK_SIZE = 1024 * 1024 * 5; // 5 MB
     const BACKUP_DIRECTORY_AFFIX = 'Shared/';
     const BACKUP_FILE_PREFIX = 'Shared-';
