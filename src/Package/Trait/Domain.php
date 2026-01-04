@@ -183,6 +183,12 @@ trait Domain {
         echo 'Initializing backup...' . PHP_EOL .PHP_EOL;
         foreach($read as $nr => $file){
             if($file->type == File::TYPE){
+                if(!File::is_readable($file->url)){
+                    continue;
+                }
+                if(File::is_link($file->url)){
+                    continue;
+                }
                 $file->owner = File::owner($file->url);
                 $file->group = File::group($file->url);
                 $file->chmod = File::rights($file->url);
