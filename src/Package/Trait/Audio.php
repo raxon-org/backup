@@ -143,7 +143,7 @@ trait Audio {
     {
         Core::interactive();
         $object = $this->object();
-        $directory = $object->config('project.dir.node');
+        $directory = $object->config('project.dir.audio');
         $dir = new Dir();
         if(property_exists($options, 'ignore')){
             $dir->ignore($options->ignore);
