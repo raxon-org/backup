@@ -221,7 +221,7 @@ trait Node {
                     File::permission($object, [
                         'url' => $url,
                     ]);
-                    if(File::size($url) > (1024 * 5)){
+                    if(File::size($url) > (self::CHUNK_SIZE)){
                         $number++;
                         $url = $dir_output . self::BACKUP_FILE_PREFIX . $number . '.backup';
                     }
