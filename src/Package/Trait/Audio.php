@@ -199,6 +199,9 @@ trait Audio {
                 if(!empty($options->exclude) && in_array($file->basename, $options->exclude, true)){
                     $is_entry = false;
                 }
+                elseif(!empty($options->exclude)){
+                    $is_entry = true;
+                }
                 if(empty($options->include) && empty($options->exclude)){
                     $is_entry = true;
                 }
