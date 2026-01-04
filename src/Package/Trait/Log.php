@@ -149,6 +149,9 @@ trait Log {
             $dir->ignore($options->exclude);
         }
         $read = $dir->read($directory, true);
+        if($read === false){
+            throw new Exception('Directory not found: ' . $directory);
+        }
         $read = Sort::list($read)->with(['url' => Sort::ASC]);
         $count = 0;
         $number = 0;

@@ -11,11 +11,11 @@ use Raxon\Module\File;
 use Exception;
 use Raxon\Module\Sort;
 
-trait Domain {
+trait Log {
     const CHUNK_SIZE = 1024 * 1024 * 5; // 5 MB
-    const BACKUP_DIRECTORY_AFFIX = 'Domain/';
-    const BACKUP_FILE_PREFIX = 'Domain-';
-    public function domain_restore(object $flags, object $options): void
+    const BACKUP_DIRECTORY_AFFIX = 'Shared/';
+    const BACKUP_FILE_PREFIX = 'Shared-';
+    public function shared_restore(object $flags, object $options): void
     {
         $object = $this->object();
         Core::interactive();
@@ -139,11 +139,11 @@ trait Domain {
     /**
      * @throws Exception
      */
-    public function domain_create(object $flags, object $options): void
+    public function shared_create(object $flags, object $options): void
     {
         Core::interactive();
         $object = $this->object();
-        $directory = $object->config('project.dir.domain');
+        $directory = $object->config('project.dir.shared');
         $dir = new Dir();
         if(property_exists($options, 'exclude')){
             $dir->ignore($options->exclude);
