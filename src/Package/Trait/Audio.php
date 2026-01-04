@@ -211,6 +211,9 @@ trait Audio {
                     $data_count = count($data);
                     foreach($data as $data_nr => $part){
                         File::append($url, $part);
+                        File::permission($object, [
+                            'url' => $url,
+                        ]);
                         if($data_count !== $data_nr + 1){
                             $number++;
                             $url = $dir_output . self::BACKUP_FILE_PREFIX . $number . '.backup';
