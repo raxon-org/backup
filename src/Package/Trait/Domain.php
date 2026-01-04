@@ -149,7 +149,9 @@ trait Domain {
             $dir->ignore($options->exclude);
         }
         $read = $dir->read($directory, true);
+        breakpoint($read);
         $read = Sort::list($read)->with(['url' => Sort::ASC]);
+        breakpoint($read);
         $count = 0;
         $number = 0;
         $max = count($read);
