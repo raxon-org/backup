@@ -15,7 +15,7 @@ trait Audio {
     const CHUNK_SIZE = 1024 * 1024 * 5; // 5 MB
     const BACKUP_DIRECTORY_AFFIX = 'Audio/';
     const BACKUP_FILE_PREFIX = 'Audio-';
-    public function data_restore(object $flags, object $options): void
+    public function audio_restore(object $flags, object $options): void
     {
         $object = $this->object();
         Core::interactive();
@@ -139,7 +139,7 @@ trait Audio {
     /**
      * @throws Exception
      */
-    public function data_create(object $flags, object $options): void
+    public function audio_create(object $flags, object $options): void
     {
         Core::interactive();
         $object = $this->object();
