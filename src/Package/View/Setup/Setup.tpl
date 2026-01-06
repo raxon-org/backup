@@ -3,7 +3,7 @@
 {{Package.Raxon.Backup:Import:role.system()}}
 {{Package.Raxon.Backup:Setup:install()}}
 {{$list = dir.read(config('project.dir.data') + 'Cron')}}
-{{if($list)}}
+{{if(is.array($list))}}
 {{foreach($list as $file)}
 {{$read = file.read($file.url)}}
 {{d($read)}}
