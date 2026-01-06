@@ -143,8 +143,7 @@ trait Application {
     {
         Core::interactive();
         $object = $this->object();
-        $directory = $object->config('project.dir');
-        ddd($directory);
+        $directory = $object->config('project.dir.root');
         $dir = new Dir();
         if(property_exists($options, 'exclude')){
             $dir->ignore($options->exclude);
