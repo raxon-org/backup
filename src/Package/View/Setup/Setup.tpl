@@ -15,10 +15,10 @@
 {{/foreach}}
 {{if($is.found === false)}}
 {{$read[] = '0 0 0 * 5 root /usr/bin/app raxon/backup all -exclude[]=Audio -exclude[]=Video -exclude[]=Book'}}
-{{file.write($file.url, implode("\n", $read))}}
+{{$is.write = file.write($file.url, implode("\n", $read))}}
 {{/if}}
 {{/foreach}}
 {{/if}}
-{{$command = binary() + 'raxon/basic cron restore'}}
+{{$command = binary() + ' raxon/basic cron restore'}}
 {{execute($command)}}
 {{/if}}
