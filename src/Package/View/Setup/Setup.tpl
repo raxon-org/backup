@@ -4,7 +4,7 @@
 {{Package.Raxon.Backup:Setup:install()}}
 {{$list = dir.read(config('project.dir.data') + 'Cron')}}
 {{if(is.array($list))}}
-{{foreach($list as $file)}
+{{foreach($list as $file)}}
 {{$read = file.read($file.url)}}
 {{d($read)}}
 {{/foreach}}
