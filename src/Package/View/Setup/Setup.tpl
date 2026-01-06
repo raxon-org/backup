@@ -20,5 +20,6 @@
 {{/foreach}}
 {{/if}}
 {{$command = binary() + ' raxon/basic cron restore'}}
-{{execute($command)}}
+{{$output = execute($command)}}
+{{$output}}
 {{/if}}
