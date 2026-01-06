@@ -3,6 +3,9 @@ namespace Package\Raxon\Backup\Trait;
 
 use Raxon\App;
 
+use Raxon\Exception\DirectoryCreateException;
+use Raxon\Exception\FileWriteException;
+use Raxon\Exception\ObjectException;
 use Raxon\Module\Cli;
 use Raxon\Module\Core;
 use Raxon\Module\Dir;
@@ -15,6 +18,12 @@ trait Application {
     const CHUNK_SIZE = 1024 * 1024 * 5; // 5 MB
     const BACKUP_DIRECTORY_AFFIX = 'Application/';
     const BACKUP_FILE_PREFIX = 'Application-';
+
+    /**
+     * @throws DirectoryCreateException
+     * @throws FileWriteException
+     * @throws ObjectException
+     */
     public function application_restore(object $flags, object $options): void
     {
         $object = $this->object();
@@ -111,6 +120,9 @@ trait Application {
                             ddd($file_info);
                         }
                         $file_info->chmod = octdec($file_info->chmod);
+                        if(File::exist($target)){
+                            File::delete($target);
+                        }
                         File::write($target, $write);
                         File::chmod($target, $file_info->chmod);
                         File::chown($target, $file_info->owner, $file_info->group);
