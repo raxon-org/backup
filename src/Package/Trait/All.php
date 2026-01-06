@@ -40,10 +40,10 @@ trait All {
         $object = $this->object();
         $exclude = $options->exclude ?? [];
         foreach(self::CATEGORIES as $item){
-            if(in_array($item, $exclude)){
+            if(in_array($item, $exclude, true)){
                 continue;
             }
-            $command = Core::binary($object) . ' raxon/backup ' . $item;
+            $command = Core::binary($object) . ' raxon/backup ' . strtolower($item);
             Core::execute($object, $command, $output, $notification);
             if($output){
                 echo $output . PHP_EOL;
