@@ -31,6 +31,7 @@ trait All {
         'Shared',
         'Video'
     ];
+
     /**
      * @throws Exception
      */
@@ -44,6 +45,33 @@ trait All {
                 continue;
             }
             $command = Core::binary($object) . ' raxon/backup ' . strtolower($item);
+            Core::execute($object, $command, $output, $notification);
+            if($output){
+                echo $output . PHP_EOL;
+            }
+            if($notification){
+                echo $notification . PHP_EOL;
+            }
+        }
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function all_restore(object $flags, object $options): void
+    {
+        Core::interactive();
+        $object = $this->object();
+        $exclude = $options->exclude ?? [];
+        $date = $options->date ?? null;
+        foreach(self::CATEGORIES as $item){
+            if(in_array($item, $exclude, true)){
+                continue;
+            }
+            $command = Core::binary($object) . ' raxon/backup restore ' . strtolower($item);
+            if($date){
+                $command .= ' -date ' . $date;
+            }
             Core::execute($object, $command, $output, $notification);
             if($output){
                 echo $output . PHP_EOL;
