@@ -3,3 +3,4 @@
 {{Package.Raxon.Backup:Import:role.system()}}
 {{Package.Raxon.Backup:Setup:install()}}
 {{Package.Raxon.Backup:Setup:setup.cron()}}
+{{/if}}
