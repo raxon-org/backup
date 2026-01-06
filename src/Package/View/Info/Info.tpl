@@ -28,6 +28,6 @@ restores:
 
 When requested option -date needs to be added in form YYYYMMDD.
 Example:
-{{binary()}} {{$request.package|>default:''}} restore domain -date={{date('Y-m-d')}}
+{{binary()}} {{$request.package|>default:''}} restore domain -date={{date('Ymd')}}
 
 {{binary()}} {{$request.package|>default:''}} setup
