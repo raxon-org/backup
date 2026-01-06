@@ -99,7 +99,10 @@ trait Audio {
                         $file_info
                     ){
                         $explode = explode('/' . $file_info->name, $file_info->url);
-                        $file_info->dir = $explode[0] . '/';
+                        if(count($explode) > 1){
+                            array_pop($explode);
+                            $file_info->dir = implode('/' . $file_info->name, $explode) . '/';
+                        }
                         if(property_exists($options, 'target')){
                             $file_info->dir = str_replace($header->directory, $options->target, $file_info->dir);
                         }
