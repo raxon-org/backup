@@ -30,6 +30,7 @@ trait Setup {
         $dir_read = $object->config('project.dir.data') . 'Cron';
         $dir = new Dir();
         $list = $dir->read($dir_read);
+        echo 'Setting up cron jobs...' . PHP_EOL;
         if(is_array($list)){
             foreach($list as $file){
                 $read = explode("\n", File::read($file->url));
