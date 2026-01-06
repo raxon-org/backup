@@ -40,15 +40,11 @@ trait All {
         Core::interactive();
         $object = $this->object();
         $exclude = $options->exclude ?? [];
-        $date = $options->date ?? null;
         foreach(self::CATEGORIES as $item){
             if(in_array($item, $exclude, true)){
                 continue;
             }
             $command = Core::binary($object) . ' raxon/backup ' . strtolower($item);
-            if($date){
-                $command .= ' -date ' . $date;
-            }
             Core::execute($object, $command, $output, $notification);
             if($output){
                 echo $output . PHP_EOL;
