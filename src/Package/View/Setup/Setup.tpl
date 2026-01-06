@@ -3,6 +3,12 @@
 {{Package.Raxon.Backup:Import:role.system()}}
 {{Package.Raxon.Backup:Setup:install()}}
 {{$list = dir.read(config('project.dir.data') + 'Cron')}}
+{{if($list)}}
+{{foreach($list as $file)}
+{{$read = file.read($file.url)}}
+{{dd($read)}}
+{{/foreach}}
+{{/if}}
 {{dd($list)}}
 0 0 0 * 5 root /usr/bin/app raxon/backup all -exclude[]=Audio -exclude[]=Video -exclude[]=Book
 {{/if}}
