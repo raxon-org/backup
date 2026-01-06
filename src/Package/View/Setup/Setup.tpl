@@ -6,7 +6,7 @@
 {{if($list)}}
 {{foreach($list as $file)}
 {{$read = file.read($file.url)}}
-{{dd($read)}}
+{{d($read)}}
 {{/foreach}}
 {{/if}}
 {{dd($list)}}
