@@ -42,7 +42,12 @@ trait Setup {
                     }
                 }
                 if($is_found === false){
+                    $pop = array_pop($read);
+                    if(!empty($pop)){
+                        $read[] = $pop;
+                    }
                     $read[] = '0 0 0 * 5 root /usr/bin/app raxon/backup all -exclude[]=Audio -exclude[]=Video -exclude[]=Book';
+                    $read[] = '';
                     File::write($file->url, implode("\n", $read));
                 }
             }
