@@ -32,6 +32,15 @@ trait All {
         'Video'
     ];
 
+    const RESTART = [
+        'raxon/basic apache2 restore',
+        'raxon/basic apache2 restart',
+        'raxon/basic php restore',
+        'raxon/basic php restart',
+        'raxon/basic cron restore',
+        'raxon/basic cron restart',
+    ];
+
     /**
      * @throws Exception
      */
@@ -72,6 +81,29 @@ trait All {
             if($date){
                 $command .= ' -date ' . $date;
             }
+            Core::execute($object, $command, $output, $notification);
+            if($output){
+                echo $output . PHP_EOL;
+            }
+            if($notification){
+                echo $notification . PHP_EOL;
+            }
+        }
+    }
+
+    /**
+     * @throws ObjectException
+     * @throws Exception
+     */
+    public function all_restart(object $flags, object $options): void
+    {
+        $object = $this->object();
+        Core::interactive();
+        $commands = [];
+        foreach(self::RESTART as $item){
+            $commands[] = Core::binary($object) . $item;
+        }
+        foreach ($commands as $command){
             Core::execute($object, $command, $output, $notification);
             if($output){
                 echo $output . PHP_EOL;
