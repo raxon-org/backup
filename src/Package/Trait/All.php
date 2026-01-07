@@ -101,7 +101,7 @@ trait All {
         Core::interactive();
         $commands = [];
         foreach(self::RESTART as $item){
-            $commands[] = Core::binary($object) . $item;
+            $commands[] = Core::binary($object) . ' ' . $item;
         }
         foreach ($commands as $command){
             Core::execute($object, $command, $output, $notification);
